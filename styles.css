@@ -584,6 +584,37 @@ body.light-theme .setting-group select {
     background: transparent !important;
 }
 
+.chat-messages, .message-text pre, .code-block, .custom-table, .message-text table, #messageInput {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) rgba(176,190,197,0.08);
+}
+.chat-messages::-webkit-scrollbar, .message-text pre::-webkit-scrollbar, .code-block::-webkit-scrollbar, .custom-table::-webkit-scrollbar, .message-text table::-webkit-scrollbar, #messageInput::-webkit-scrollbar {
+    width: 8px;
+    background: rgba(176,190,197,0.08);
+    border-radius: 8px;
+}
+.chat-messages::-webkit-scrollbar-thumb, .message-text pre::-webkit-scrollbar-thumb, .code-block::-webkit-scrollbar-thumb, .custom-table::-webkit-scrollbar-thumb, .message-text table::-webkit-scrollbar-thumb, #messageInput::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 8px;
+    min-height: 40px;
+    border: 2px solid rgba(176,190,197,0.08);
+}
+.chat-messages::-webkit-scrollbar-thumb:hover, .message-text pre::-webkit-scrollbar-thumb:hover, .code-block::-webkit-scrollbar-thumb:hover, .custom-table::-webkit-scrollbar-thumb:hover, .message-text table::-webkit-scrollbar-thumb:hover, #messageInput::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
+body.light-theme .chat-messages, body.light-theme .message-text pre, body.light-theme .code-block, body.light-theme .custom-table, body.light-theme .message-text table, body.light-theme #messageInput {
+    scrollbar-color: #374151 #E3E9EF;
+}
+body.light-theme .chat-messages::-webkit-scrollbar, body.light-theme .message-text pre::-webkit-scrollbar, body.light-theme .code-block::-webkit-scrollbar, body.light-theme .custom-table::-webkit-scrollbar, body.light-theme .message-text table::-webkit-scrollbar, body.light-theme #messageInput::-webkit-scrollbar {
+    background: #E3E9EF;
+}
+body.light-theme .chat-messages::-webkit-scrollbar-thumb, body.light-theme .message-text pre::-webkit-scrollbar-thumb, body.light-theme .code-block::-webkit-scrollbar-thumb, body.light-theme .custom-table::-webkit-scrollbar-thumb, body.light-theme .message-text table::-webkit-scrollbar-thumb, body.light-theme #messageInput::-webkit-scrollbar-thumb {
+    background: #374151;
+    border: 2px solid #E3E9EF;
+}
+body.light-theme .chat-messages::-webkit-scrollbar-thumb:hover, body.light-theme .message-text pre::-webkit-scrollbar-thumb:hover, body.light-theme .code-block::-webkit-scrollbar-thumb:hover, body.light-theme .custom-table::-webkit-scrollbar-thumb:hover, body.light-theme .message-text table::-webkit-scrollbar-thumb:hover, body.light-theme #messageInput::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
+}
 @media (max-width: 900px) {
     .chat-header, .chat-input-area {
         max-width: 100vw;
@@ -821,8 +852,153 @@ body.light-theme .message-text {
 body.light-theme .message-content:hover {
     box-shadow: 0 8px 24px 0 #E3E9EF !important;
 }
-@media (max-width: 600px) {
-    #exportChat {
-        display: none !important;
-    }
+.custom-link, .message-text a {
+    color: var(--primary-color);
+    text-decoration: underline;
+    transition: color 0.2s;
+    word-break: break-all;
+}
+.custom-link:hover, .message-text a:hover {
+    color: #D4AF37;
+    text-decoration: underline;
+}
+.inline-code, .message-text code:not(.hljs) {
+    background: rgba(176,190,197,0.10);
+    color: var(--primary-color);
+    border-radius: var(--radius-md);
+    padding: 0.18em 0.5em;
+    font-size: 0.98em;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    margin: 0 0.15em;
+    word-break: break-all;
+}
+.code-block, .message-text pre {
+    background: rgba(176,190,197,0.10);
+    color: var(--primary-color);
+    border-radius: var(--radius-lg);
+    padding: 1.1em 1.3em;
+    font-size: 1em;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    overflow-x: auto;
+    margin: 1.2em 0;
+    box-shadow: 0 2px 12px rgba(176,190,197,0.08);
+    border: 1.5px solid var(--border-color);
+    position: relative;
+}
+.code-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: none;
+    color: var(--text-muted);
+    font-size: 0.92em;
+    padding-bottom: 0.3em;
+    margin-bottom: 0.2em;
+    border-bottom: 1px solid var(--border-color);
+}
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1em;
+    padding: 0.2em 0.5em;
+    border-radius: var(--radius-md);
+    transition: background 0.18s, color 0.18s;
+}
+.copy-btn:hover {
+    background: var(--primary-color);
+    color: #121212;
+}
+.custom-blockquote, .message-text blockquote {
+    background: rgba(176,190,197,0.08);
+    border-left: 4px solid var(--primary-color);
+    color: var(--primary-color);
+    margin: 1.2em 0;
+    padding: 0.8em 1.2em;
+    border-radius: var(--radius-md);
+    font-style: italic;
+}
+.custom-table, .message-text table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(176,190,197,0.08);
+    color: var(--primary-color);
+    margin: 1.2em 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    font-size: 1em;
+}
+.custom-table th, .custom-table td, .message-text th, .message-text td {
+    border: 1px solid var(--border-color);
+    padding: 0.7em 1em;
+    text-align: left;
+}
+.custom-table th, .message-text th {
+    background: rgba(176,190,197,0.13);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.table-wrapper {
+    overflow-x: auto;
+    margin: 1.2em 0;
+}
+.custom-list, .message-text ul, .message-text ol {
+    padding-left: 2em;
+    margin: 1em 0;
+}
+.task-list-item {
+    list-style-type: none;
+}
+.task-list input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    margin-right: 0.5em;
+}
+body.light-theme .custom-link, body.light-theme .message-text a {
+    color: #374151;
+}
+body.light-theme .custom-link:hover, body.light-theme .message-text a:hover {
+    color: #D4AF37;
+}
+body.light-theme .inline-code, body.light-theme .message-text code:not(.hljs) {
+    background: #F1F5F9;
+    color: #374151;
+}
+body.light-theme .code-block, body.light-theme .message-text pre {
+    background: #F1F5F9;
+    color: #374151;
+    border: 1.5px solid #E3E9EF;
+}
+body.light-theme .code-header {
+    color: #8A99A8;
+    border-bottom: 1px solid #E3E9EF;
+}
+body.light-theme .copy-btn {
+    color: #374151;
+}
+body.light-theme .copy-btn:hover {
+    background: var(--primary-color);
+    color: #23272A;
+}
+body.light-theme .custom-blockquote, body.light-theme .message-text blockquote {
+    background: #F1F5F9;
+    color: #374151;
+    border-left: 4px solid var(--primary-color);
+}
+body.light-theme .custom-table, body.light-theme .message-text table {
+    background: #F1F5F9;
+    color: #374151;
+}
+body.light-theme .custom-table th, body.light-theme .message-text th {
+    background: #E3E9EF;
+    color: #374151;
+}
+body.light-theme .custom-table th, body.light-theme .custom-table td, body.light-theme .message-text th, body.light-theme .message-text td {
+    border: 1px solid #E3E9EF;
+}
+body.light-theme .custom-list, body.light-theme .message-text ul, body.light-theme .message-text ol {
+    color: #374151;
+}
+body.light-theme .task-list input[type="checkbox"] {
+    accent-color: var(--primary-color);
 }
