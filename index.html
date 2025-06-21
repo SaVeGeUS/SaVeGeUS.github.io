@@ -19,6 +19,17 @@
     <meta http-equiv="Content-Language" content="en">
 </head>
 <body>
+    <div class="login-modal" id="loginModal">
+        <div class="login-content">
+            <div class="login-header">
+                <div class="ragenet-logo"><img src="assets/logo.png?v=1.2.0" alt="RageNET Logo"></div>
+                <h2>Sign in to RageNET</h2>
+            </div>
+            <div class="login-body">
+                <button class="google-login-btn" id="googleLoginBtn"><i class="fa-brands fa-google"></i> Continue with Google</button>
+            </div>
+        </div>
+    </div>
     <div class="chat-container">
         <header class="chat-header">
             <div class="header-content">
@@ -29,15 +40,17 @@
                     <div class="bot-details">
                         <h1 class="bot-name">RageNET</h1>
                         <span class="bot-model">Rage-1</span>
+                        <span class="plus-badge" id="plusBadge" style="display:none;">Plus</span>
                     </div>
                 </div>
                 <div class="header-actions">
                     <button class="action-btn" id="exportChat" title="Export Chat"><i class="fa-solid fa-download"></i>
                     </button>
-                    <button class="action-btn" id="clearChat" title="Clear Chat"><i class="fa-solid fa-trash"></i>
+                    <button class="action-btn" id="clearChat" title="Clear Chat"><i class="fa-regular fa-trash-can"></i>
                     </button>
-                    <button class="action-btn" id="settingsBtn" title="Settings"><i class="fa-solid fa-gear"></i>
+                    <button class="action-btn settingsBtn" title="Settings"><i class="fa-solid fa-gear"></i>
                     </button>
+                    <button class="plus-btn" id="openPlusModal" title="RageNET Plus"><i class="fa-solid fa-star"></i></button>
                 </div>
             </div>
         </header>
@@ -59,9 +72,9 @@
                 <div class="header-actions">
                     <button class="action-btn" id="exportChat" title="Export Chat"><i class="fa-solid fa-download"></i>
                     </button>
-                    <button class="action-btn" id="clearChat" title="Clear Chat"><i class="fa-solid fa-trash"></i>
+                    <button class="action-btn" id="clearChat" title="Clear Chat"><i class="fa-regular fa-trash-can"></i>
                     </button>
-                    <button class="action-btn" id="settingsBtn" title="Settings"><i class="fa-solid fa-gear"></i>
+                    <button class="action-btn settingsBtn" title="Settings"><i class="fa-solid fa-gear"></i>
                     </button>
                 </div>
             </div>
@@ -71,14 +84,17 @@
                 <img src="assets/RageNET.png?v=1.2.0" alt="RageNET Welcome">
             </div>
         </main>
+        <div class="ai-typing-indicator" id="aiTypingIndicator" style="display:none;">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
         <footer class="chat-input-area">
             <div class="input-container">
                 <div class="input-wrapper">
-                    <textarea id="messageInput" placeholder="How can I help you?" rows="1" maxlength="1000"
-                        title="Type your message here"></textarea>
+                    <textarea id="messageInput" placeholder="How can I help you?" rows="1" maxlength="1000"></textarea>
                     <div class="input-actions">
-                        <button class="send-btn" id="sendBtn" title="Send message"><i class="fa-solid fa-paper-plane"></i>
+                        <button class="send-btn" id="sendBtn" title="Send message"><i class="fa-solid fa-arrow-up"></i>
                         </button>
+                        <button class="search-btn" id="searchWebBtn" title="Search Web"><i class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
                 </div>
                 <div class="input-footer">
@@ -93,21 +109,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3>Settings</h3>
-                <button class="close-btn" id="closeSettings" title="Close Settings"><i class="fa-solid fa-xmark"></i>
+                <button class="close-btn" id="closeSettings" title="Close Settings"><i class="fa-regular fa-circle-xmark"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="setting-group">
                     <label>
-                        <input type="checkbox" id="soundEnabled" checked title="Enable notification sounds">
+                        <input type="checkbox" id="soundEnabled" checked>
                         Enable notification sounds
                     </label>
                 </div>
                 <div class="setting-group">
                     <label>
-                        <input type="checkbox" id="autoScrollEnabled" checked title="Auto-scroll to new messages">
+                        <input type="checkbox" id="autoScrollEnabled" checked>
                         Auto-scroll to new messages
                     </label>
+                </div>
+                <div class="setting-group">
+                    <button class="account-btn" id="openAccountSettings" style="width:100%;display:flex;align-items:center;gap:0.7rem;justify-content:center;background:var(--surface-color);color:var(--primary-color);border:1.5px solid var(--border-color);border-radius:var(--radius-lg);padding:0.7rem 0;font-size:1.08rem;font-weight:500;transition:background var(--transition-fast),color var(--transition-fast),border var(--transition-fast);cursor:pointer;margin-bottom:0.7rem;"><i class="fa-regular fa-user"></i> Account</button>
                 </div>
                 <div class="setting-actions">
                     <button class="reset-btn" id="resetSettings" title="Reset to Defaults"><i class="fa-solid fa-rotate-left"></i>
@@ -118,6 +137,52 @@
             </div>
         </div>
     </div>
+    <div class="account-settings-modal" id="accountSettingsModal">
+        <div class="account-modal-content">
+            <div class="account-modal-header">
+                <h3>Account Settings</h3>
+                <button class="close-btn" id="closeAccountSettings"><i class="fa-regular fa-circle-xmark"></i></button>
+            </div>
+            <div class="account-modal-body">
+                <div class="account-avatar-section">
+                    <img id="accountAvatar" class="account-avatar" src="assets/logo.png?v=1.2.0" alt="Avatar">
+                    <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+                    <button class="avatar-change-btn" id="changeAvatarBtn"><i class="fa-regular fa-image"></i> Change</button>
+                </div>
+                <div class="account-username-section">
+                    <label for="accountUsername">Username</label>
+                    <input type="text" id="accountUsername" maxlength="32" autocomplete="off">
+                    <button class="username-save-btn" id="saveUsernameBtn"><i class="fa-solid fa-floppy-disk"></i> Save</button>
+                </div>
+                <button class="logout-btn" id="logoutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Log out</button>
+            </div>
+        </div>
+    </div>
+    <div class="plus-modal" id="plusModal">
+        <div class="plus-modal-content">
+            <div class="plus-modal-header">
+                <div class="ragenet-logo"><img src="assets/logo.png?v=1.2.0" alt="RageNET Logo"></div>
+                <h2>RageNET Plus</h2>
+                <button class="close-btn" id="closePlusModal" title="Close"><i class="fa-regular fa-circle-xmark"></i></button>
+            </div>
+            <div class="plus-modal-body">
+                <div class="plus-benefits">
+                    <h3>Upgrade to RageNET Plus</h3>
+                    <ul>
+                        <li>Message length up to <b>2000</b> characters</li>
+                        <li>Priority support & features</li>
+                        <li>Only <b>$3/month</b></li>
+                        <li>Subscription tied to your Google account</li>
+                    </ul>
+                </div>
+                <button class="plus-subscribe-btn" id="plusSubscribeBtn"><i class="fa-solid fa-star"></i> Subscribe for $3/month</button>
+                <div class="plus-status" id="plusStatus"></div>
+            </div>
+        </div>
+    </div>
+    <button class="plus-floating-btn" id="plusFloatingBtn" title="Upgrade to RageNET Plus">
+        <i class="fa-solid fa-star"></i> RageNET Plus
+    </button>
     <script src="core.js?v=1.2.0"></script>
 </body>
 </html>
